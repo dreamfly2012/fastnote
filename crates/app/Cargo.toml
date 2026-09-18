@@ -1,0 +1,30 @@
+[package]
+name = "fastnote-app"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "fastnote"
+path = "src/main.rs"
+
+[dependencies]
+fastnote-core = { workspace = true }
+fastnote-ai = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+gpui = "0.2.2"
+smallvec = "1"
+image = { version = "0.25", default-features = false, features = [
+    "png",
+    "jpeg",
+    "gif",
+    "bmp",
+    "tiff",
+    "webp",
+] }
+
+[build-dependencies]
+embed-resource = "3.0.11"

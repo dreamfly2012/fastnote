@@ -1,0 +1,51 @@
+[workspace]
+members = ["crates/core", "crates/ai", "crates/app"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "MIT"
+authors = ["fujia"]
+description = "本地优先、即时渲染的 Markdown 笔记应用，内置双向链接、关系图谱与原生 AI 写作助手（Rust + GPUI）。"
+repository = "https://github.com/menghuiguli/fastnote"
+homepage = "https://github.com/menghuiguli/fastnote"
+readme = "README.md"
+keywords = ["notes", "markdown", "zk", "knowledge-base", "gpui"]
+categories = ["gui", "productivity"]
+
+[workspace.dependencies]
+fastnote-core = { path = "crates/core" }
+fastnote-ai = { path = "crates/ai" }
+
+ropey = "1.6"
+pulldown-cmark = { version = "0.12", default-features = false }
+anyhow = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time"] }
+futures-util = "0.3"
+reqwest = { version = "0.12", default-features = false, features = [
+    "json",
+    "stream",
+    "rustls-tls",
+] }
+notify = "6"
+smallvec = "1"
+
+# 启动速度优先：LTO + 单编译单元 + panic=abort 缩小体积、减少运行时初始化
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = "symbols"
+incremental = false
+
+# 开发期也保持依赖为优化构建，否则 GPU 渲染与 rope 操作在 debug 下会明显掉帧
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3

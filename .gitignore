@@ -1,0 +1,30 @@
+# ===== Rust 构建产物 =====
+/target
+/target-*
+*.pdb
+
+# ===== 运行 / 构建日志与临时文件 =====
+*.log
+procs.txt
+
+# ===== 仓库根目录的零散截图（非文档资产） =====
+/shot1.png
+/shot2.png
+
+# ===== 内部工作区记忆（不可对外发布） =====
+.workbuddy/
+
+# ===== 示例笔记库的运行时数据（自动生成，非源文件） =====
+sample-vault/.fastnote/
+
+# ===== 操作系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+*.bak
+*.swp
+*~
+.idea/
+.vscode/
+
+# ===== Cargo 本地覆盖（如有） =====
+.cargo/
