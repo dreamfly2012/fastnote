@@ -75,7 +75,7 @@ docs/ui/        界面截图（README 用）
 ### 获取与运行 / Build & Run
 
 ```bash
-git clone https://github.com/menghuiguli/fastnote.git
+git clone https://github.com/dreamfly2012/fastnote.git
 cd fastnote
 
 # 开发运行（debug，保留控制台便于看 panic）

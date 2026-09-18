@@ -3,14 +3,14 @@ members = ["crates/core", "crates/ai", "crates/app"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "1.0.0"
 edition = "2021"
 rust-version = "1.85"
 license = "MIT"
-authors = ["fujia"]
+authors = ["dreamfly2012"]
 description = "本地优先、即时渲染的 Markdown 笔记应用，内置双向链接、关系图谱与原生 AI 写作助手（Rust + GPUI）。"
-repository = "https://github.com/menghuiguli/fastnote"
-homepage = "https://github.com/menghuiguli/fastnote"
+repository = "https://github.com/dreamfly2012/fastnote"
+homepage = "https://github.com/dreamfly2012/fastnote"
 readme = "README.md"
 keywords = ["notes", "markdown", "zk", "knowledge-base", "gpui"]
 categories = ["gui", "productivity"]
