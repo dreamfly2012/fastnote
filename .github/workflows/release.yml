@@ -1,0 +1,46 @@
+name: Release Build
+
+# 推送 v* 标签时自动构建并发布 Windows 二进制
+on:
+  push:
+    tags:
+      - "v*"
+
+# 允许工作流创建/更新 Release
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    name: Build Windows binary
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust toolchain (1.85.0 / MSVC)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          # 对齐 Cargo.toml 中的 rust-version = "1.85"
+          toolchain: 1.85.0
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache Cargo registry and build
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        run: cargo build --release --locked
+
+      - name: Stage artifact
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item "target/release/fastnote.exe" "dist/fastnote-${{ github.ref_name }}.exe"
+
+      - name: Publish to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          # 自动关联到触发本次运行的 tag；若该 tag 尚无 Release 则创建
+          files: dist/fastnote-${{ github.ref_name }}.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
